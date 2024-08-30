@@ -63,6 +63,6 @@ def question_answer(query_engine, question, conversation_history):
     
     # Update conversation history
     conversation_history.append(f"You: {question}")
-    conversation_history.append(f"Bot: {response.response} Thank you!")
+    conversation_history.append(f"Bot: {response.response}")
     
     return response.response + " Thank you!"

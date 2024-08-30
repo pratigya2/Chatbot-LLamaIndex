@@ -1,6 +1,10 @@
 # Anxiety-Related RAG Chatbot using LlamaIndex
 
 Welcome to the **Anxiety-Related RAG Chatbot** repository! This project uses [LlamaIndex](https://github.com/run-llama/llamaindex) to build a Retrieval-Augmented Generation (RAG) chatbot. The chatbot is designed to assist users by answering questions related to anxiety, based on information extracted from an anxiety-related PDF.
+<figure>
+  <img src="readme_images\output.png" alt="Project Image">
+  <figcaption>Fig.1 - Output using Multi Query Translation and RAG fusion </figcaption>
+</figure>
 
 ## Table of Contents
 
@@ -55,6 +59,7 @@ The information from this book is processed and indexed to create a robust chatb
      > "Anxiety is tackled through a combination of therapies, such as cognitive-behavioral therapy (CBT), medication, lifestyle changes, and self-care practices. Common treatments include regular exercise, mindfulness practices, and sometimes the use of medications like SSRIs to manage symptoms effectively."
 
 This approach ensures that the chatbot's responses are well-rounded, covering multiple aspects of the user's question.
+
 
 ## Installation
 

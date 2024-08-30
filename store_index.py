@@ -3,7 +3,8 @@ import os
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient
 from llama_index.vector_stores.qdrant import QdrantVectorStore
-from llama_index.core import VectorStoreIndex
+from llama_index.core import VectorStoreIndex, StorageContext
+from llama_index.core import load_index_from_storage
 
 # Load environment variables
 load_dotenv()
@@ -32,18 +33,22 @@ def load_index():
     collection_name = "vectors_of_document"
     vector_store = create_vector_store(qdrant_client, collection_name)
     documents = load_documents("Data/")
-    print("Creating the GPT Index...")
     splits = splitter()
-    index = VectorStoreIndex.from_documents(
-          documents,
-          embed_model=model,
-          vector_store=vector_store,
-          transformations=[splits],
-          show_progress=True
+    if os.path.isdir('index'):
+        print("Loading the Index...")
+        storage_context = StorageContext.from_defaults(persist_dir="index")
+        index = load_index_from_storage(storage_context)
+    else:
+        print("Creating the Index...")
+        index = VectorStoreIndex.from_documents(
+                documents,
+                embed_model=model,
+                vector_store=vector_store,
+                transformations=[splits],
+                show_progress=True
 
-            )
-    index.storage_context.persist(persist_dir="index")
-    storage_context = StorageContext.from_defaults(persist_dir="index")
-    index = load_index_from_storage(storage_context)
+        )
+        index.storage_context.persist(persist_dir="index")
+        storage_context = StorageContext.from_defaults(persist_dir="index")
     
     return index
