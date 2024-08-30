@@ -42,15 +42,8 @@ def chatbot_query_engine():
             node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.5)],
         )
     return query_engine
-# while True:
-#     query = input("How can I help you?: ")
-#     retriever.retrieve(query)
-#     query_engine.update_prompts(
-#     {"response_synthesizer:text_qa_template": partial_prompt_tmpl}
-#     )
-#     answer = query_engine.query(query).response
-#     print(answer)
-def ask_question(query_engine, question, conversation_history):
+
+def question_answer(query_engine, question, conversation_history):
     # Context contains all previous conversations
     context = "\n".join(conversation_history) + f"\nYou: {question}"
 

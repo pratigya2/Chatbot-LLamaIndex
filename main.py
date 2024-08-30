@@ -1,4 +1,4 @@
-from chat import chatbot_query_engine, ask_question
+from chat import chatbot_query_engine, question_answer
 
 def chat_with_bot(query_engine):
     print("Hey! How can I help you?")
@@ -12,7 +12,7 @@ def chat_with_bot(query_engine):
             print("Bot: Bye, Remember me)")
             break
         
-        response = ask_question(query_engine, user_input, conversation_history)
+        response = question_answer(query_engine, user_input, conversation_history)
         print(f"Bot: {response}\n")
 
 def main():
