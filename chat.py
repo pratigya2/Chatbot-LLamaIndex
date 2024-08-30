@@ -7,49 +7,61 @@ from llama_index.core.postprocessor import SimilarityPostprocessor
 from llama_index.core.query_engine import RetrieverQueryEngine
 from src.prompt import *
 from llama_index.core import get_response_synthesizer
-from store_index import *
+from store_index import load_index
 
-
+# Load environment variables
 load_dotenv()
-def chatbot_query_engine():
 
+def create_answering_model():
+    """Initialize and return the HuggingFace model."""
     HuggingFace_api_key = os.environ.get('HuggingFace_api_key')
-    answering_model = HuggingFaceInferenceAPI(
-                    model_name="HuggingFaceH4/zephyr-7b-alpha", token = HuggingFace_api_key
-                    )
-    index = load_index()
-    Settings.llm = answering_model
+    return HuggingFaceInferenceAPI(
+        model_name="HuggingFaceH4/zephyr-7b-alpha",
+        token=HuggingFace_api_key
+    )
 
-    retriever = QueryFusionRetriever(
+def create_retriever(index):
+    """Create and return a QueryFusionRetriever instance."""
+    return QueryFusionRetriever(
         [index.as_retriever()],
-        llm=answering_model,
+        llm=create_answering_model(),
         similarity_top_k=2,
-        num_queries=2,  # set this to 1 to disable query generation
+        num_queries=2,  # Set to 1 to disable query generation
         use_async=True,
         verbose=True,
-        query_gen_prompt=query_generation_template,  # we could override the query generation prompt here
-        )
-# query_engine = RetrieverQueryEngine.from_args(retriever)
+        query_gen_prompt=query_generation_template
+    )
+
+def create_query_engine(retriever):
+    """Create and return a RetrieverQueryEngine instance."""
     prompt_tmpl = PromptTemplate(answer_query_template)
     partial_prompt_tmpl = prompt_tmpl.partial_format(tone_name="Doctor")
     synth = get_response_synthesizer(
-                llm = answering_model,
-                text_qa_template=partial_prompt_tmpl,
-            )
-    query_engine = RetrieverQueryEngine(
-            retriever=retriever,
-            response_synthesizer=synth,
-            node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.5)],
-        )
-    return query_engine
+        llm=create_answering_model(),
+        text_qa_template=partial_prompt_tmpl
+    )
+    return RetrieverQueryEngine(
+        retriever=retriever,
+        response_synthesizer=synth,
+        node_postprocessors=[SimilarityPostprocessor(similarity_cutoff=0.5)]
+    )
+
+def chatbot_query_engine():
+    """Initialize and return the chatbot query engine."""
+    index = load_index()
+    Settings.llm = create_answering_model()
+    retriever = create_retriever(index)
+    return create_query_engine(retriever)
 
 def question_answer(query_engine, question, conversation_history):
-    # Context contains all previous conversations
+    """Process a question and return the chatbot's response."""
+    # Build context from conversation history
     context = "\n".join(conversation_history) + f"\nYou: {question}"
-
+    
+    # Query the engine
     response = query_engine.query(context)
     
-    # Storing the conversations
+    # Update conversation history
     conversation_history.append(f"You: {question}")
     conversation_history.append(f"Bot: {response.response} Thank you!")
     
