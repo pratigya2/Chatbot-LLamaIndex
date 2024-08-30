@@ -5,7 +5,7 @@ Welcome to the **Anxiety-Related RAG Chatbot** repository! This project uses [Ll
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Introduction](#Source Document)
+- [Source Document](#source-document)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
