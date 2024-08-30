@@ -5,6 +5,7 @@ Welcome to the **Anxiety-Related RAG Chatbot** repository! This project uses [Ll
 ## Table of Contents
 
 - [Introduction](#introduction)
+- [Introduction](#Source Document)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -15,6 +16,11 @@ Welcome to the **Anxiety-Related RAG Chatbot** repository! This project uses [Ll
 
 This project aims to provide an intelligent chatbot capable of answering queries about anxiety, leveraging the power of LlamaIndex for document-based retrieval and a powerful language model for generating responses. The data source for the chatbot is a PDF document containing detailed information on anxiety, including causes, symptoms, and management strategies.
 
+## Source Document: "The Nature and Treatment of Anxiety and Disorder"
+
+This project uses the book **"The Nature and Treatment of Anxiety and Disorder"** as the primary source of data. The book provides a comprehensive overview of anxiety disorders, including their nature, underlying causes, and various treatment approaches. It covers psychological, medical, and holistic perspectives, making it a valuable resource for understanding and addressing anxiety-related issues.
+
+The information from this book is processed and indexed to create a robust chatbot capable of answering questions related to anxiety and its treatment.
 ## Features
 
 - **RAG (Retrieval-Augmented Generation) System**: Combines the strength of retrieval-based methods with generative models to provide accurate and contextually relevant answers.
