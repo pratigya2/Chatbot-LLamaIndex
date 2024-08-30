@@ -25,6 +25,10 @@ This project aims to provide an intelligent chatbot capable of answering queries
 ### RAG Fusion
 
 **RAG Fusion** (Retrieval-Augmented Generation Fusion) is a technique used to enhance the accuracy of the chatbot's responses. For each user question, RAG Fusion generates additional related queries to retrieve a broader set of documents. The information from these documents is then combined to produce a more comprehensive and informed answer.
+<figure>
+  <img src="readme_images/image.png" alt="Project Image">
+  <figcaption>Fig.1 - Generated queries to retrieve broder set of documents</figcaption>
+</figure>
 
 #### Example:
 
