@@ -88,10 +88,10 @@ To configure the environment variables for this project, follow these steps:
 1. **Copy the Example File**:
    - Start by copying the `.env_example` file to create a new `.env` file. This `.env` file will store all the necessary environment variables for your local development environment.
 
-   ```
+```
    cp .env_example .env
 ```
-2. **Populate the `.env` File
+2. **Populate the `.env` File**
 
 - After copying the `.env_example` file to `.env`, open the `.env` file in your text editor and replace the placeholder values with your actual environment-specific values.
 
